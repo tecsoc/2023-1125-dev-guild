@@ -4,8 +4,12 @@ import postImage from "./images/post.png";
 import profileImage from "./images/profile.jpg";
 
 import Image from "next/image";
+import Post from "./components/Post/post";
+import { fetchPosts } from "./features/posts";
 
-const FollowsPage = () => {
+const FollowsPage = async () => {
+  const posts = await fetchPosts();
+  // console.log(posts);
   return <>
     <div className="layout_wrapper">
       <nav>
@@ -84,98 +88,9 @@ const FollowsPage = () => {
           </form>
         </div>
 
-        <div className="post">
-          <div className="post_profile-image">
-            {/* <img src="images/profile.jpg" alt="profile" /> */}
-            <Image src={profileImage} alt="profile"  width={40} height={40} />
-          </div>
-
-          <div className="post_body">
-            <div className="post_header">
-              <div className="post_header-text">
-                <h3>RyoCa<small>@ryocacode</small></h3>
-              </div>
-
-              <div className="post_header-discription">
-                <p>Googleのリンクを貼ります</p>
-                <br />
-                <p>
-                  <a href="https://google.com">https://google.com</a>
-                </p>
-              </div>
-            </div>
-            {/* <img src="images/post.png" class="post_image" /> */}
-            <Image src={postImage} alt="post" className="post_image"  width={400} height={377.5}   />
-
-            <div className="post_footer">
-              <span className="material-icons">chat</span>
-              <span className="material-icons">repeat</span>
-              <span className="material-icons">favorite_border</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="post">
-          <div className="post_profile-image">
-            {/* <img src="images/profile.jpg" alt="profile" /> */}
-            <Image src={profileImage} alt="profile"  width={40} height={40} />
-          </div>
-
-          <div className="post_body">
-            <div className="post_header">
-              <div className="post_header-text">
-                <h3>RyoCa<small>@ryocacode</small></h3>
-              </div>
-
-              <div className="post_header-discription">
-                <p>Googleのリンクを貼ります</p>
-                <br />
-                <p>
-                  <a href="https://google.com">https://google.com</a>
-                </p>
-              </div>
-            </div>
-            {/* <img src="images/post.png" class="post_image" /> */}
-            <Image src={postImage} alt="post" className="post_image"  width={450} height={337.5} />
-
-            <div className="post_footer">
-              <span className="material-icons">chat</span>
-              <span className="material-icons">repeat</span>
-              <span className="material-icons">favorite_border</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="post">
-          <div className="post_profile-image">
-            {/* <img src="images/profile.jpg" alt="profile" /> */}
-            <Image src={profileImage} alt="profile"  width={40} height={40} />
-          </div>
-
-          <div className="post_body">
-            <div className="post_header">
-              <div className="post_header-text">
-                <h3>RyoCa<small>@ryocacode</small></h3>
-              </div>
-
-              <div className="post_header-discription">
-                <p>Googleのリンクを貼ります</p>
-                <br />
-                <p>
-                  <a href="https://google.com">https://google.com</a>
-                </p>
-              </div>
-            </div>
-            {/* <img src={postImage} alt="post" className="post_image" */}
-            <Image src={postImage} alt="post" className="post_image"  width={450} height={337.5} />
-
-            <div className="post_footer">
-              <span className="material-icons">chat</span>
-              <span className="material-icons">repeat</span>
-              <span className="material-icons">favorite_border</span>
-            </div>
-          </div>
-        </div>
+        { posts.map(({ id, userName, userImageUrl, postImageUrl }) => (
+          <Post key={id} authorName={userName} profileImageSrc={userImageUrl} postImageSrc={postImageUrl} />
+        )) }
       </main>
 
       <aside>
